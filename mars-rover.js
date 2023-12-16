@@ -1,6 +1,6 @@
 export const grid = {
-    y: [0,1,2,3,4,5],
-    x: [0,1,2,3,4,5],
+    y: [0, 1, 2, 3, 4, 5],
+    x: [0, 1, 2, 3, 4, 5],
     direction: ['N', 'E', 'S', 'W']
 }
 export const getXPositionOnGrid = (input) => {
@@ -19,11 +19,13 @@ export const getDirectionOnGrid = (input) => {
     return direction;
 }
 const getNewDirectionIndex = (initialDirectionIndex, moveTo) => {
+    const lastDirectionElement = grid['direction'].length - 1
+
     switch(moveTo) {
         case 'L':
-            return initialDirectionIndex === 0 ? 3 : initialDirectionIndex - 1
+            return initialDirectionIndex === 0 ? lastDirectionElement : initialDirectionIndex - 1
         case 'R':
-            return initialDirectionIndex === 3 ? 0 : initialDirectionIndex + 1
+            return initialDirectionIndex === lastDirectionElement ? 0 : initialDirectionIndex + 1
         default:
             return initialDirectionIndex
     }
@@ -35,15 +37,18 @@ export const getNewDirectionOnGrid = (direction, moveTo) => {
     return newDirection
 }
 export const getNewPositionOnGrid = (x, y, direction) => {
+    const lastXElement = grid['x'].length - 1
+    const lastYElement = grid['y'].length - 1
+
     switch(direction) {
         case 'N':
-            return {x, y: y + 1}
+            return {x, y: y === lastYElement ? 0 : y + 1}
         case 'S':
-            return {x, y: y - 1}
+            return {x, y: y === 0 ? lastYElement : y - 1}
         case 'E':
-            return {x: x + 1, y}
+            return {x: x === lastXElement ? 0 : x + 1, y}
         case 'W':
-            return {x: x - 1, y}
+            return {x: x === 0 ? lastXElement : x - 1, y}
         default:
             return {x, y}
 

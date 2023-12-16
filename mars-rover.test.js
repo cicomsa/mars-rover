@@ -77,12 +77,17 @@ describe('given an R movement request', () => {
         expect(result).toBe(newDirection)
     })
 })
+
 describe.each`
     x | y | direction | newPosition
     ${1} | ${2} | ${'N'} | ${{x: 1, y: 3}}
     ${1} | ${2} | ${'S'} | ${{x: 1, y: 1}}
     ${1} | ${2} | ${'W'} | ${{x: 0, y: 2}}
     ${1} | ${2} | ${'E'} | ${{x: 2, y: 2}}
+    ${1} | ${0} | ${'S'} | ${{x: 1, y: 5}}
+    ${1} | ${5} | ${'N'} | ${{x: 1, y: 0}}
+    ${0} | ${2} | ${'W'} | ${{x: 5, y: 2}}
+    ${5} | ${2} | ${'E'} | ${{x: 0, y: 2}}
     `('and a step movement request', ({x, y, direction, newPosition}) => {
     it('should display new position on grid', () => {
         const position = getNewPositionOnGrid(x, y, direction)
@@ -107,7 +112,7 @@ describe.each`
     })
 })
 
-// game tests
+// play game tests
 describe.each`
     input | moveTo | output
     ${'1 2 N'} | ${'LM'} | ${'0 2 W'}
