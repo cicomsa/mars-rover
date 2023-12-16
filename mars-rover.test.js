@@ -2,9 +2,7 @@
 import {expect, describe, it} from '@jest/globals'
 import {
     getNewRoverPosition,
-    getXPositionOnGrid,
-    getYPositionOnGrid,
-    getDirectionOnGrid,
+    setRoverOnGrid,
     getNewDirectionOnGrid,
     getNewPositionOnGrid,
     playGame
@@ -12,37 +10,20 @@ import {
 
 // display initial position and direction on grid
 describe('given an input', () => {
-    it('should display Y position on grid', () => {
+    it.each`
+        key | inputPosition | expectedPosition
+        ${'x'} | ${0} | ${1}
+        ${'y'} | ${1} | ${2}
+        ${'direction'} | ${2} | ${'N'}
+    `('should set rover position on grid', ({key, inputPosition, expectedPosition}) => {
         //arrange
         const input = '1 2 N'
 
         //act
-        const position = getYPositionOnGrid(input)
+        const position = setRoverOnGrid(input, key, inputPosition)
 
         //expect
-        expect(position).toBe(2)
-    })
-
-    it('should display X position on grid', () => {
-        //arrange
-        const input = '1 2 N'
-
-        //act
-        const position = getXPositionOnGrid(input)
-
-        //expect
-        expect(position).toBe(1)
-    })
-
-    it('should display direction on grid', () => {
-        //arrange
-        const input = '1 2 N'
-
-        //act
-        const direction = getDirectionOnGrid(input)
-
-        //expect
-        expect(direction).toBe('N')
+        expect(position).toBe(expectedPosition)
     })
 })
 
